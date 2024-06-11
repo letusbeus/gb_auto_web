@@ -1,0 +1,15 @@
+# Ignore .idea folder
+.idea/
+
+# Ignore node_modules folder (for Node.js projects)
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore environment files
+.env
