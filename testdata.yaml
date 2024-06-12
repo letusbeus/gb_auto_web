@@ -1,0 +1,9 @@
+address: https://test-stand.gb.ru/
+#driver_path: chromedriver.exe
+
+# Чтобы не скачивать драйвера под конкретный браузер каждый раз вручную, можно просто указать браузер
+browser: chrome
+sleep_time: 0
+
+username: oqjklww
+password: 2fbcd87d73
