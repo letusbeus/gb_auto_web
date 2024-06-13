@@ -90,3 +90,9 @@ def x_input_post_data():
 # Находит кнопку сохранения нового поста (xpath)
 def btn_save_post():
     return """//*[@id="create-item"]/div/div/div[7]/div/button"""
+
+
+@pytest.fixture()
+# Находит заголовок созданного поста (xpath)
+def check_new_post_title():
+    return """//*[@id="app"]/main/div/div[1]/h1"""
