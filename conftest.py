@@ -1,11 +1,19 @@
 import pytest
 import yaml
-
 from module import Site
 
-with open('testdata.yaml') as f:
-    testdata = yaml.safe_load(f)
-# site = Site(testdata["address"])
+
+@pytest.fixture(scope='module')
+def testdata():
+    with open('testdata.yaml') as f:
+        return yaml.safe_load(f)
+
+
+@pytest.fixture(scope='module')
+def site(testdata):
+    site_instance = Site(testdata["address"])
+    yield site_instance
+    site_instance.quit()
 
 
 @pytest.fixture()
@@ -51,48 +59,42 @@ def x_hello_username():
 
 
 @pytest.fixture()
-# Возвращает "Hello {username}", где username - логин, заданный в тестовых данных
-def x_username():
-    return f'Hello, {testdata["username"]}'
-
-
-@pytest.fixture()
 # Находит кнопку создания нового поста
 def create_btn_selector():
     return """create-btn"""
 
 
 @pytest.fixture()
-# Находит поле ввода заголовка нового поста (xpath)
+# Находит поле ввода заголовка нового поста
 def x_input_post_title():
     return """//*[@id="create-item"]/div/div/div[1]/div/label/input"""
 
 
 @pytest.fixture()
-# Находит поле ввода описания нового поста (xpath)
+# Находит поле ввода описания нового поста
 def x_input_post_description():
     return """//*[@id="create-item"]/div/div/div[2]/div/label/span/textarea"""
 
 
 @pytest.fixture()
-# Находит поле ввода контента нового поста (xpath)
+# Находит поле ввода контента нового поста
 def x_input_post_content():
     return """//*[@id="create-item"]/div/div/div[3]/div/label/span/textarea"""
 
 
 @pytest.fixture()
-# Находит поле ввода даты публикации нового поста (xpath)
+# Находит поле ввода даты публикации нового поста
 def x_input_post_data():
     return """//*[@id="create-item"]/div/div/div[5]/div/div/label/input"""
 
 
 @pytest.fixture()
-# Находит кнопку сохранения нового поста (xpath)
+# Находит кнопку сохранения нового поста
 def btn_save_post_selector():
     return """//*[@id="create-item"]/div/div/div[7]/div/button"""
 
 
 @pytest.fixture()
-# Находит заголовок созданного поста (xpath)
+# Находит заголовок созданного поста
 def check_new_post_title():
     return """//*[@id="app"]/main/div/div[1]/h1"""

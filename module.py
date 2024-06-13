@@ -3,6 +3,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
@@ -14,7 +17,7 @@ with open('testdata.yaml') as f:
 class Site:
     def __init__(self, address):
         if browser == "firefox":
-            service = Service(executable_path=GeckoDriverManager().install())
+            service = FirefoxService(executable_path=GeckoDriverManager().install())
             options = webdriver.FirefoxOptions()
             self.driver = webdriver.Firefox(service=service, options=options)
         elif browser == "chrome":
@@ -23,10 +26,9 @@ class Site:
             self.driver = webdriver.Chrome(service=service, options=options)
         else:
             raise ValueError(f"Unsupported browser: {browser}")
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(3)  # Уменьшено значение implicit wait до 3 секунд
         self.driver.maximize_window()
         self.driver.get(address)
-        # time.sleep(testdata["sleep_time"])
 
     def find_element(self, mode, path):
         if mode == 'css':
@@ -35,6 +37,23 @@ class Site:
             element = self.driver.find_element(By.XPATH, path)
         elif mode == 'id':
             element = self.driver.find_element(By.ID, path)
+        else:
+            element = None
+        return element
+
+    def wait_for_element(self, mode, path, timeout=10):
+        if mode == 'css':
+            element = WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, path))
+            )
+        elif mode == 'xpath':
+            element = WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located((By.XPATH, path))
+            )
+        elif mode == 'id':
+            element = WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located((By.ID, path))
+            )
         else:
             element = None
         return element
