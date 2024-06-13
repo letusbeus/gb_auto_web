@@ -1,5 +1,5 @@
 address: https://test-stand.gb.ru/
-sleep_time: 1
+sleep_time: 3
 browser: chrome
 wait: 3
 username: oqjklww

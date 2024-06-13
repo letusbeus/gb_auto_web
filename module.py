@@ -26,7 +26,7 @@ class Site:
         self.driver.implicitly_wait(3)
         self.driver.maximize_window()
         self.driver.get(address)
-        time.sleep(testdata["sleep_time"])
+        # time.sleep(testdata["sleep_time"])
 
     def find_element(self, mode, path):
         if mode == 'css':

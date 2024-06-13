@@ -5,7 +5,7 @@ from module import Site
 
 with open('testdata.yaml') as f:
     testdata = yaml.safe_load(f)
-site = Site(testdata["address"])
+# site = Site(testdata["address"])
 
 
 @pytest.fixture()
@@ -28,7 +28,7 @@ def x_error_selector():
 
 @pytest.fixture()
 # Находит кнопку "LOGIN"
-def btn_selector():
+def btn_login_selector():
     return """button"""
 
 
@@ -57,7 +57,7 @@ def x_username():
 
 
 @pytest.fixture()
-# Находит кнопку создания нового поста (ID)
+# Находит кнопку создания нового поста
 def create_btn_selector():
     return """create-btn"""
 
@@ -88,7 +88,7 @@ def x_input_post_data():
 
 @pytest.fixture()
 # Находит кнопку сохранения нового поста (xpath)
-def btn_save_post():
+def btn_save_post_selector():
     return """//*[@id="create-item"]/div/div/div[7]/div/button"""
 
 
