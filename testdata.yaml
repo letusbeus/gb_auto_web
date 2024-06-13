@@ -1,0 +1,9 @@
+address: https://test-stand.gb.ru/
+sleep_time: 1
+browser: chrome
+wait: 3
+username: oqjklww
+password: 2fbcd87d73
+title: New post title
+description: New post description
+content: New post content
