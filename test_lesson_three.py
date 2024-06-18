@@ -1,7 +1,9 @@
 from testpage import OperationsHelper
+import logging
 
 
 def test_invalid_authorization(browser):
+    logging.info('Authorization testing started')
     testpage = OperationsHelper(browser)
     testpage.go_to_site()
     testpage.enter_login("username")
