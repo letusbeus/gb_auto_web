@@ -7,3 +7,6 @@ password: 2fbcd87d73
 title: 'New post title'
 description: 'New post description'
 content: 'New post content'
+name: 'User name'
+email: 'user@email.me'
+message: 'User content'

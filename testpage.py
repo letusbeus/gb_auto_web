@@ -17,6 +17,11 @@ class TestSearchLocators:
     LOCATOR_NEW_POST_CONTENT = (By.XPATH, """//*[@id="create-item"]/div/div/div[3]/div/label/span/textarea""")
     LOCATOR_SAVE_NEW_POST_BTN = (By.XPATH, """//*[@id="create-item"]/div/div/div[7]/div/button""")
     LOCATOR_CHECK_NEW_POST_TITLE = (By.XPATH, """//*[@id="app"]/main/div/div[1]/h1""")
+    LOCATOR_CONTACT_US = (By.XPATH, """//*[@id="app"]/main/nav/ul/li[2]/a""")
+    LOCATOR_YOUR_NAME_FIELD = (By.XPATH, """//*[@id="contact"]/div[1]/label/input""")
+    LOCATOR_YOUR_EMAIL_FIELD = (By.XPATH, """//*[@id="contact"]/div[2]/label/input""")
+    LOCATOR_MESSAGE_FIELD = (By.XPATH, """//*[@id="contact"]/div[3]/label/span/textarea""")
+    LOCATOR_CONTACT_US_BTN = (By.XPATH, """//*[@id="contact"]/div[4]/button""")
 
 
 class OperationsHelper(BasePage):
@@ -85,3 +90,41 @@ class OperationsHelper(BasePage):
         logging.info(
             f'Title field {TestSearchLocators.LOCATOR_CHECK_NEW_POST_TITLE[1]} contains the following title: {text}')
         return text
+
+    def contact_us_form_request(self):
+        logging.info(
+            f'"Contact us" form {TestSearchLocators.LOCATOR_CONTACT_US[1]} has been requested')
+        self.find_element(TestSearchLocators.LOCATOR_CONTACT_US).click()
+
+    def enter_user_name(self, name):
+        logging.info(
+            f'User name \"{name}\" has been entered into the field {TestSearchLocators.LOCATOR_YOUR_NAME_FIELD[1]}')
+        user_name_field = self.find_element(TestSearchLocators.LOCATOR_YOUR_NAME_FIELD)
+        user_name_field.clear()
+        user_name_field.send_keys(name)
+
+    def enter_user_email(self, email):
+        logging.info(
+            f'User email \"{email}\" has been entered into the field {TestSearchLocators.LOCATOR_YOUR_EMAIL_FIELD[1]}')
+        user_email_field = self.find_element(TestSearchLocators.LOCATOR_YOUR_EMAIL_FIELD)
+        user_email_field.clear()
+        user_email_field.send_keys(email)
+
+    def enter_user_message(self, message):
+        logging.info(
+            f'User]\'s message \"{message}\" has been entered into the field {TestSearchLocators.LOCATOR_MESSAGE_FIELD[1]}')
+        user_message_field = self.find_element(TestSearchLocators.LOCATOR_MESSAGE_FIELD)
+        user_message_field.clear()
+        user_message_field.send_keys(message)
+
+    def click_contact_us_btn(self):
+        logging.info(
+            f'"Contact us" button {TestSearchLocators.LOCATOR_CONTACT_US_BTN} has been pressed')
+        self.find_element(TestSearchLocators.LOCATOR_CONTACT_US_BTN).click()
+
+    def get_alert_text(self):
+        alert = self.driver.switch_to.alert
+        alert_text = alert.text
+        logging.info(f'Alert text: {alert_text}')
+        alert.accept()
+        return alert_text
