@@ -37,17 +37,17 @@ def test_valid_authorization(browser):
     testpage.click_login_btn()
     assert testpage.get_user_text() == f'Hello, {username}'
 
-# Uncomment before PR
-# def test_create_new_post(browser):
-#     logging.info('Creating new post')
-#     testpage = OperationsHelper(browser)
-#     testpage.click_new_post_button()
-#     testpage.enter_post_title(title)
-#     testpage.enter_post_description(description)
-#     testpage.enter_post_content(content)
-#     testpage.click_save_new_post_button()
-#     time.sleep(2)
-#     assert testpage.check_new_post_title() == title
+
+def test_create_new_post(browser):
+    logging.info('Creating new post')
+    testpage = OperationsHelper(browser)
+    testpage.click_new_post_button()
+    testpage.enter_post_title(title)
+    testpage.enter_post_description(description)
+    testpage.enter_post_content(content)
+    testpage.click_save_new_post_button()
+    time.sleep(2)
+    assert testpage.check_new_post_title() == title
 
 
 def test_contact_us(browser):
