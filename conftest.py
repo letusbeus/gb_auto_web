@@ -6,14 +6,14 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-# with open('testdata.yaml') as f:
-#     testdata = yaml.safe_load(f)
-#     browser = testdata["browser"]
+with open('testdata.yaml') as f:
+    testdata = yaml.safe_load(f)
+    browser_type = testdata["browser"]
 
 
 @pytest.fixture(scope="session")
 def browser():
-    if browser == "firefox":
+    if browser_type == "firefox":
         service = FirefoxService(executable_path=GeckoDriverManager().install())
         options = webdriver.FirefoxOptions()
         driver = webdriver.Firefox(service=service, options=options)
