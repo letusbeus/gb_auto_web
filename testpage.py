@@ -1,4 +1,5 @@
 import logging
+import yaml
 
 from selenium.webdriver.common.by import By
 
@@ -6,22 +7,13 @@ from BaseApp import BasePage
 
 
 class TestSearchLocators:
-    LOCATOR_LOGIN_FIELD = (By.XPATH, """//*[@id="login"]/div[1]/label/input""")
-    LOCATOR_PASSWORD_FIELD = (By.XPATH, """//*[@id="login"]/div[2]/label/input""")
-    LOCATOR_LOGIN_BTN = (By.CSS_SELECTOR, """button""")
-    LOCATOR_ERROR_FIELD = (By.XPATH, """//*[@id="app"]/main/div/div/div[2]/h2""")
-    LOCATOR_HELLO = (By.XPATH, """//*[@id="app"]/main/nav/ul/li[3]/a""")
-    LOCATOR_NEW_POST_BTN = (By.ID, """create-btn""")
-    LOCATOR_NEW_POST_TITLE = (By.XPATH, """//*[@id="create-item"]/div/div/div[1]/div/label/input""")
-    LOCATOR_NEW_POST_DESCRIPTION = (By.XPATH, """//*[@id="create-item"]/div/div/div[2]/div/label/span/textarea""")
-    LOCATOR_NEW_POST_CONTENT = (By.XPATH, """//*[@id="create-item"]/div/div/div[3]/div/label/span/textarea""")
-    LOCATOR_SAVE_NEW_POST_BTN = (By.XPATH, """//*[@id="create-item"]/div/div/div[7]/div/button""")
-    LOCATOR_CHECK_NEW_POST_TITLE = (By.XPATH, """//*[@id="app"]/main/div/div[1]/h1""")
-    LOCATOR_CONTACT_US = (By.XPATH, """//*[@id="app"]/main/nav/ul/li[2]/a""")
-    LOCATOR_YOUR_NAME_FIELD = (By.XPATH, """//*[@id="contact"]/div[1]/label/input""")
-    LOCATOR_YOUR_EMAIL_FIELD = (By.XPATH, """//*[@id="contact"]/div[2]/label/input""")
-    LOCATOR_MESSAGE_FIELD = (By.XPATH, """//*[@id="contact"]/div[3]/label/span/textarea""")
-    LOCATOR_CONTACT_US_BTN = (By.XPATH, """//*[@id="contact"]/div[4]/button""")
+    ids = dict()
+    with open('locators.yaml') as f:
+        locators = yaml.safe_load(f)
+    for locator in locators["xpath"].keys():
+        ids[locator] = (By.XPATH, locators["xpath"][locator])
+    for locator in locators["css"].keys():
+        ids[locator] = (By.CSS_SELECTOR, locators["css"][locator])
 
 
 class OperationsHelper(BasePage):
@@ -124,7 +116,7 @@ class OperationsHelper(BasePage):
         return self.get_element_text(TestSearchLocators.LOCATOR_CHECK_NEW_POST_TITLE, desc='Post title text')
 
     def get_alert(self):
-        logging.info(f'Retrieving alert text')
+        logging.debug(f'Retrieving alert text')
         text = self.get_alert_text()
-        logging.info(f'Alert text "{text}" has been retrieved.')
+        logging.debug(f'Alert text "{text}" has been retrieved.')
         return text

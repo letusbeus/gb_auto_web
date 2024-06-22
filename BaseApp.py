@@ -40,7 +40,6 @@ class BasePage:
     def get_alert_text(self):
         try:
             alert = self.driver.switch_to.alert
-            logging.info(f'Alert text: {alert.text}')
             return alert.text
         except:
             logging.exception('Exception with alert')
