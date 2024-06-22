@@ -4,9 +4,13 @@ browser: chrome
 wait: 3
 username: oqjklww
 password: 2fbcd87d73
-title: 'New post title'
-description: 'New post description'
-content: 'New post content'
-name: 'User name'
-email: 'user@email.me'
-message: 'User content'
+title: New post title
+description: New post description
+content: New post content
+name: User name
+email: user@email.me
+message: User content
+from_address: my_python@mail.ru
+to_address: my_python@mail.ru
+mail_password: kaz7wCqeaW2tyYbxGNzt
+report_name: log.txt

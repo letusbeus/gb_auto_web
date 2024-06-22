@@ -1,9 +1,90 @@
+# import logging
+# import time
+# import datetime
+# import yaml
+# from sender import send_report
+# from testpage import OperationsHelper
+#
+# with open('testdata.yaml') as f:
+#     testdata = yaml.safe_load(f)
+# username = testdata["username"]
+# password = testdata["password"]
+# title = testdata["title"]
+# description = testdata["description"]
+# content = testdata["content"]
+# name = testdata["name"]
+# email = testdata["email"]
+# message = testdata["message"]
+# path = f'{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.png'
+# from_address = testdata['from_address']
+# to_address = testdata['to_address']
+# mail_password = testdata['mail_password']
+# report_name = testdata['report_name']
+#
+#
+# def test_invalid_authorization(browser):
+#     testname = 'Incorrect authorization'
+#     logging.info(f'"{testname}": Test RUNNING')
+#     testpage = OperationsHelper(browser)
+#     testpage.go_to_site()
+#     testpage.enter_login("username")
+#     testpage.enter_password("password")
+#     testpage.click_login_btn()
+#     assert testpage.get_error_text() == "401", "FAIL"
+#     logging.info(f'"{testname}": test PASSED')
+#     # test_list.append(logging.info(f'"{testname}": test PASSED'))
+#
+#
+# def test_valid_authorization(browser):
+#     testname = 'Correct authorization'
+#     logging.info(f'"{testname}": Test RUNNING')
+#     testpage = OperationsHelper(browser)
+#     testpage.enter_login(username)
+#     testpage.enter_password(password)
+#     testpage.click_login_btn()
+#     assert testpage.get_hellouser_text() == f'Hello, {username}'
+#     logging.info(f'"{testname}": test PASSED')
+#
+#
+# def test_create_new_post(browser):
+#     testname = 'Creating new post'
+#     logging.info(f'"{testname}": Test RUNNING')
+#     testpage = OperationsHelper(browser)
+#     testpage.click_new_post_button()
+#     testpage.enter_post_title(title)
+#     testpage.enter_post_description(description)
+#     testpage.enter_post_content(content)
+#     testpage.click_save_new_post_button()
+#     time.sleep(2)
+#     assert testpage.get_new_post_title() == title
+#     logging.info(f'"{testname}": test PASSED')
+#
+#
+# def test_contact_us_form(browser):
+#     testname = '"Contact us" form'
+#     logging.info(f'"{testname}": Test RUNNING')
+#     testpage = OperationsHelper(browser)
+#     testpage.contact_us_form_request()
+#     testpage.enter_user_name(name)
+#     testpage.enter_user_email(email)
+#     testpage.enter_user_message(message)
+#     testpage.click_contact_us_btn()
+#     time.sleep(2)
+#     alert_text = testpage.get_alert()
+#     assert alert_text == 'Form successfully submitted', "Alert text does not match expected text."
+#     logging.info(f'"{testname}": test PASSED')
+#
+#
+# def test_send_test_list():
+#     send_report(from_address, to_address, mail_password, report_name)
+
+
 import logging
 import time
 import datetime
 import yaml
-
-import testpage
+import atexit
+from sender import send_report
 from testpage import OperationsHelper
 
 with open('testdata.yaml') as f:
@@ -17,29 +98,43 @@ name = testdata["name"]
 email = testdata["email"]
 message = testdata["message"]
 path = f'{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.png'
+from_address = testdata['from_address']
+to_address = testdata['to_address']
+mail_password = testdata['mail_password']
+report_name = 'log.txt'
+
+
+@atexit.register
+def send_report_after_tests():
+    send_report(from_address, to_address, mail_password, report_name)
 
 
 def test_invalid_authorization(browser):
-    logging.info('Incorrect authorization testing started')
+    testname = 'Incorrect authorization'
+    logging.info(f'"{testname}": Test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.go_to_site()
     testpage.enter_login("username")
     testpage.enter_password("password")
     testpage.click_login_btn()
     assert testpage.get_error_text() == "401", "FAIL"
+    logging.info(f'"{testname}": test PASSED')
 
 
 def test_valid_authorization(browser):
-    logging.info('Correct authorization testing started')
+    testname = 'Correct authorization'
+    logging.info(f'"{testname}": Test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.enter_login(username)
     testpage.enter_password(password)
     testpage.click_login_btn()
     assert testpage.get_hellouser_text() == f'Hello, {username}'
+    logging.info(f'"{testname}": test PASSED')
 
 
 def test_create_new_post(browser):
-    logging.info('Creating new post testing started')
+    testname = 'Creating new post'
+    logging.info(f'"{testname}": Test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.click_new_post_button()
     testpage.enter_post_title(title)
@@ -48,10 +143,12 @@ def test_create_new_post(browser):
     testpage.click_save_new_post_button()
     time.sleep(2)
     assert testpage.get_new_post_title() == title
+    logging.info(f'"{testname}": test PASSED')
 
 
-def test_contact_us(browser):
-    logging.info('"Contact us" form testing has begun...')
+def test_contact_us_form(browser):
+    testname = '"Contact us" form'
+    logging.info(f'"{testname}": Test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.contact_us_form_request()
     testpage.enter_user_name(name)
@@ -61,3 +158,4 @@ def test_contact_us(browser):
     time.sleep(2)
     alert_text = testpage.get_alert()
     assert alert_text == 'Form successfully submitted', "Alert text does not match expected text."
+    logging.info(f'"{testname}": test PASSED')
