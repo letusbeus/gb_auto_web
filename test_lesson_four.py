@@ -35,7 +35,7 @@ def test_valid_authorization(browser):
     testpage.enter_login(username)
     testpage.enter_password(password)
     testpage.click_login_btn()
-    assert testpage.get_user_text() == f'Hello, {username}'
+    assert testpage.get_hellouser_text() == f'Hello, {username}'
 
 
 def test_create_new_post(browser):
@@ -47,7 +47,7 @@ def test_create_new_post(browser):
     testpage.enter_post_content(content)
     testpage.click_save_new_post_button()
     time.sleep(2)
-    assert testpage.check_new_post_title() == title
+    assert testpage.get_new_post_title() == title
 
 
 def test_contact_us(browser):

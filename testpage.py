@@ -25,99 +25,106 @@ class TestSearchLocators:
 
 
 class OperationsHelper(BasePage):
+
+    def enter_text_into_field(self, locator, text, desc=None):
+        element_name = desc if desc else locator
+        logging.info(f'Send "{text}" to element "{element_name}"')
+        field = self.find_element(locator)
+        if not field:
+            logging.error(f'Element "{locator}" not found.')
+            return False
+        try:
+            field.clear()
+            field.send_keys(text)
+        except:
+            logging.exception(f'A locator "{locator}" exception has occurred.')
+            return False
+        return True
+
+    def click_button(self, locator, desc=None):
+        element_name = desc if desc else locator
+        button = self.find_element(locator)
+        if not button:
+            logging.error(f'Button "{element_name}" not found.')
+            return False
+        try:
+            button.click()
+        except:
+            logging.exception(f'An exception with "{element_name}" click has occurred.')
+            return False
+        logging.info(f'Button "{element_name}" has been clicked.')
+        return True
+
+    def get_element_text(self, locator, desc=None):
+        element_name = desc if desc else locator
+        field = self.find_element(locator, time=3)
+        if not field:
+            logging.error(f'Field "{element_name}" not found.')
+            return None
+        try:
+            text = field.text
+            field.click()
+        except:
+            logging.exception(f'An exception occurred when retrieving the element "{element_name}" text.')
+            return None
+        logging.info(f'The element "{element_name}" contains the following text "{text}".')
+        return True
+
+    # enter text
     def enter_login(self, login):
-        logging.info(f'Login \"{login}\" has been sent to login field {TestSearchLocators.LOCATOR_LOGIN_FIELD[1]}')
-        login_field = self.find_element(TestSearchLocators.LOCATOR_LOGIN_FIELD)
-        login_field.clear()
-        login_field.send_keys(login)
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_LOGIN_FIELD, login, desc='Login input')
 
     def enter_password(self, password):
-        logging.info(
-            f'Password \"{password}\" has been sent to password field {TestSearchLocators.LOCATOR_PASSWORD_FIELD[1]}')
-        password_field = self.find_element(TestSearchLocators.LOCATOR_PASSWORD_FIELD)
-        password_field.clear()
-        password_field.send_keys(password)
-
-    def click_login_btn(self):
-        logging.info('The "LOGIN" button has been pressed')
-        self.find_element(TestSearchLocators.LOCATOR_LOGIN_BTN).click()
-
-    def get_error_text(self):
-        error_field = self.find_element(TestSearchLocators.LOCATOR_ERROR_FIELD, time=2)
-        text = error_field.text
-        logging.info(f'Error field {TestSearchLocators.LOCATOR_ERROR_FIELD[1]} contains the following error: {text}')
-        return text
-
-    def get_user_text(self):
-        user_field = self.find_element(TestSearchLocators.LOCATOR_HELLO, time=2)
-        text = user_field.text
-        logging.info(
-            f'\"{text}\" has been found in the field {TestSearchLocators.LOCATOR_HELLO[1]}')
-        return text
-
-    def click_new_post_button(self):
-        logging.info('The "Create new post" button has been pressed')
-        self.find_element(TestSearchLocators.LOCATOR_NEW_POST_BTN).click()
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_PASSWORD_FIELD, password, desc='Password input')
 
     def enter_post_title(self, title):
-        logging.info(
-            f'Title \"{title}\" has been entered into the field {TestSearchLocators.LOCATOR_NEW_POST_TITLE[1]}')
-        post_title_field = self.find_element(TestSearchLocators.LOCATOR_NEW_POST_TITLE)
-        post_title_field.clear()
-        post_title_field.send_keys(title)
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_NEW_POST_TITLE, title, desc='Post title input')
 
     def enter_post_description(self, description):
-        logging.info(
-            f'Description \"{description}\" has been entered into the field {TestSearchLocators.LOCATOR_NEW_POST_DESCRIPTION[1]}')
-        post_description_field = self.find_element(TestSearchLocators.LOCATOR_NEW_POST_DESCRIPTION)
-        post_description_field.clear()
-        post_description_field.send_keys(description)
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_NEW_POST_DESCRIPTION,
+                                   description, desc='Post description input')
 
     def enter_post_content(self, content):
-        logging.info(
-            f'Content \"{content}\" has been entered into the field {TestSearchLocators.LOCATOR_NEW_POST_CONTENT[1]}')
-        post_content_field = self.find_element(TestSearchLocators.LOCATOR_NEW_POST_CONTENT)
-        post_content_field.clear()
-        post_content_field.send_keys(content)
-
-    def click_save_new_post_button(self):
-        logging.info('The "SAVE" button has been pressed')
-        self.find_element(TestSearchLocators.LOCATOR_SAVE_NEW_POST_BTN).click()
-
-    def check_new_post_title(self):
-        new_post_title_field = self.find_element(TestSearchLocators.LOCATOR_CHECK_NEW_POST_TITLE, time=2)
-        text = new_post_title_field.text
-        logging.info(
-            f'Title field {TestSearchLocators.LOCATOR_CHECK_NEW_POST_TITLE[1]} contains the following title: {text}')
-        return text
-
-    def contact_us_form_request(self):
-        logging.info(
-            f'"Contact us" form {TestSearchLocators.LOCATOR_CONTACT_US[1]} has been requested')
-        self.find_element(TestSearchLocators.LOCATOR_CONTACT_US).click()
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_NEW_POST_CONTENT,
+                                   content, desc='Post content input')
 
     def enter_user_name(self, name):
-        logging.info(
-            f'User name \"{name}\" has been entered into the field {TestSearchLocators.LOCATOR_YOUR_NAME_FIELD[1]}')
-        user_name_field = self.find_element(TestSearchLocators.LOCATOR_YOUR_NAME_FIELD)
-        user_name_field.clear()
-        user_name_field.send_keys(name)
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_YOUR_NAME_FIELD, name, desc='Your name input')
 
     def enter_user_email(self, email):
-        logging.info(
-            f'User email \"{email}\" has been entered into the field {TestSearchLocators.LOCATOR_YOUR_EMAIL_FIELD[1]}')
-        user_email_field = self.find_element(TestSearchLocators.LOCATOR_YOUR_EMAIL_FIELD)
-        user_email_field.clear()
-        user_email_field.send_keys(email)
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_YOUR_EMAIL_FIELD, email, desc='Your email input')
 
     def enter_user_message(self, message):
-        logging.info(
-            f'User]\'s message \"{message}\" has been entered into the field {TestSearchLocators.LOCATOR_MESSAGE_FIELD[1]}')
-        user_message_field = self.find_element(TestSearchLocators.LOCATOR_MESSAGE_FIELD)
-        user_message_field.clear()
-        user_message_field.send_keys(message)
+        self.enter_text_into_field(TestSearchLocators.LOCATOR_MESSAGE_FIELD, message, desc='Your message input')
+
+    # click button
+    def click_login_btn(self):
+        self.click_button(TestSearchLocators.LOCATOR_LOGIN_BTN, desc='Login')
+
+    def click_new_post_button(self):
+        self.click_button(TestSearchLocators.LOCATOR_NEW_POST_BTN, desc='Create post')
+
+    def click_save_new_post_button(self):
+        self.click_button(TestSearchLocators.LOCATOR_SAVE_NEW_POST_BTN, desc='Save post')
+
+    def contact_us_form_request(self):
+        self.click_button(TestSearchLocators.LOCATOR_CONTACT_US, desc='Contact us: open')
 
     def click_contact_us_btn(self):
-        logging.info(
-            f'"Contact us" button {TestSearchLocators.LOCATOR_CONTACT_US_BTN} has been pressed')
-        self.find_element(TestSearchLocators.LOCATOR_CONTACT_US_BTN).click()
+        self.click_button(TestSearchLocators.LOCATOR_CONTACT_US_BTN, desc='Contact us: submit')
+
+    # get text
+    def get_error_text(self):
+        return self.get_element_text(TestSearchLocators.LOCATOR_ERROR_FIELD, desc='Error text')
+
+    def get_hellouser_text(self):
+        return self.get_element_text(TestSearchLocators.LOCATOR_HELLO, desc='Hello text')
+
+    def get_new_post_title(self):
+        return self.get_element_text(TestSearchLocators.LOCATOR_CHECK_NEW_POST_TITLE, desc='Post title text')
+
+    def get_alert(self):
+        logging.info(f'Retrieving alert text')
+        alert_text = self.get_alert_text()
+        logging.info(f'Alert text "{alert_text}" has been retrieved.')
+        return alert_text
