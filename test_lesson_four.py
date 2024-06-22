@@ -22,15 +22,13 @@ to_address = testdata['to_address']
 mail_password = testdata['mail_password']
 report_name = 'log.txt'
 
-
-@atexit.register
-def send_report_after_tests():
-    send_report(from_address, to_address, mail_password, report_name)
+# Вызывает функцию отправки отчета на почту после выполнения всех тестов
+atexit.register(send_report, from_address, to_address, mail_password, report_name)
 
 
 def test_invalid_authorization(browser):
     testname = 'Incorrect authorization'
-    logging.info(f'"{testname}": Test RUNNING')
+    logging.info(f'"{testname}": test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.go_to_site()
     testpage.enter_login("username")
@@ -42,7 +40,7 @@ def test_invalid_authorization(browser):
 
 def test_valid_authorization(browser):
     testname = 'Correct authorization'
-    logging.info(f'"{testname}": Test RUNNING')
+    logging.info(f'"{testname}": test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.enter_login(username)
     testpage.enter_password(password)
@@ -53,7 +51,7 @@ def test_valid_authorization(browser):
 
 def test_create_new_post(browser):
     testname = 'Creating new post'
-    logging.info(f'"{testname}": Test RUNNING')
+    logging.info(f'"{testname}": test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.click_new_post_button()
     testpage.enter_post_title(title)
@@ -67,7 +65,7 @@ def test_create_new_post(browser):
 
 def test_contact_us_form(browser):
     testname = '"Contact us" form'
-    logging.info(f'"{testname}": Test RUNNING')
+    logging.info(f'"{testname}": test RUNNING')
     testpage = OperationsHelper(browser)
     testpage.contact_us_form_request()
     testpage.enter_user_name(name)
