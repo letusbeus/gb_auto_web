@@ -28,7 +28,7 @@ class OperationsHelper(BasePage):
 
     def enter_text_into_field(self, locator, text, desc=None):
         element_name = desc if desc else locator
-        logging.info(f'Send "{text}" to element "{element_name}"')
+        logging.debug(f'Send "{text}" to element "{element_name}"')
         field = self.find_element(locator)
         if not field:
             logging.error(f'Element "{locator}" not found.')
@@ -52,7 +52,7 @@ class OperationsHelper(BasePage):
         except:
             logging.exception(f'An exception with "{element_name}" click has occurred.')
             return False
-        logging.info(f'Button "{element_name}" has been clicked.')
+        logging.debug(f'Button "{element_name}" has been clicked.')
         return True
 
     def get_element_text(self, locator, desc=None):
@@ -67,8 +67,8 @@ class OperationsHelper(BasePage):
         except:
             logging.exception(f'An exception occurred when retrieving the element "{element_name}" text.')
             return None
-        logging.info(f'The element "{element_name}" contains the following text "{text}".')
-        return True
+        logging.debug(f'The element "{element_name}" contains the following text "{text}".')
+        return text
 
     # enter text
     def enter_login(self, login):
@@ -125,6 +125,6 @@ class OperationsHelper(BasePage):
 
     def get_alert(self):
         logging.info(f'Retrieving alert text')
-        alert_text = self.get_alert_text()
-        logging.info(f'Alert text "{alert_text}" has been retrieved.')
-        return alert_text
+        text = self.get_alert_text()
+        logging.info(f'Alert text "{text}" has been retrieved.')
+        return text

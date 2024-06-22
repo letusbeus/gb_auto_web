@@ -32,6 +32,8 @@ def test_invalid_authorization(browser):
 def test_valid_authorization(browser):
     logging.info('Correct authorization testing started')
     testpage = OperationsHelper(browser)
+    # del
+    testpage.go_to_site()
     testpage.enter_login(username)
     testpage.enter_password(password)
     testpage.click_login_btn()
@@ -39,7 +41,7 @@ def test_valid_authorization(browser):
 
 
 def test_create_new_post(browser):
-    logging.info('Creating new post')
+    logging.info('Creating new post testing started')
     testpage = OperationsHelper(browser)
     testpage.click_new_post_button()
     testpage.enter_post_title(title)
@@ -59,5 +61,5 @@ def test_contact_us(browser):
     testpage.enter_user_message(message)
     testpage.click_contact_us_btn()
     time.sleep(2)
-    alert_text = testpage.get_alert_text()
+    alert_text = testpage.get_alert()
     assert alert_text == 'Form successfully submitted', "Alert text does not match expected text."
