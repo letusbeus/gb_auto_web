@@ -32,8 +32,6 @@ def test_invalid_authorization(browser):
 def test_valid_authorization(browser):
     logging.info('Correct authorization testing started')
     testpage = OperationsHelper(browser)
-    # del
-    testpage.go_to_site()
     testpage.enter_login(username)
     testpage.enter_password(password)
     testpage.click_login_btn()

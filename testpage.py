@@ -64,56 +64,56 @@ class OperationsHelper(BasePage):
 
     # enter text
     def enter_login(self, login):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_LOGIN_FIELD, login, desc='Login input')
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_LOGIN_FIELD"], login, desc='Login input')
 
     def enter_password(self, password):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_PASSWORD_FIELD, password, desc='Password input')
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_PASSWORD_FIELD"], password, desc='Password input')
 
     def enter_post_title(self, title):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_NEW_POST_TITLE, title, desc='Post title input')
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_NEW_POST_TITLE"], title, desc='Post title input')
 
     def enter_post_description(self, description):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_NEW_POST_DESCRIPTION,
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_NEW_POST_DESCRIPTION"],
                                    description, desc='Post description input')
 
     def enter_post_content(self, content):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_NEW_POST_CONTENT,
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_NEW_POST_CONTENT"],
                                    content, desc='Post content input')
 
     def enter_user_name(self, name):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_YOUR_NAME_FIELD, name, desc='Your name input')
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_YOUR_NAME_FIELD"], name, desc='Your name input')
 
     def enter_user_email(self, email):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_YOUR_EMAIL_FIELD, email, desc='Your email input')
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_YOUR_EMAIL_FIELD"], email, desc='Your email input')
 
     def enter_user_message(self, message):
-        self.enter_text_into_field(TestSearchLocators.LOCATOR_MESSAGE_FIELD, message, desc='Your message input')
+        self.enter_text_into_field(TestSearchLocators.ids["LOCATOR_MESSAGE_FIELD"], message, desc='Your message input')
 
     # click button
     def click_login_btn(self):
-        self.click_button(TestSearchLocators.LOCATOR_LOGIN_BTN, desc='Login')
+        self.click_button(TestSearchLocators.ids["LOCATOR_LOGIN_BTN"], desc='Login')
 
     def click_new_post_button(self):
-        self.click_button(TestSearchLocators.LOCATOR_NEW_POST_BTN, desc='Create post')
+        self.click_button(TestSearchLocators.ids["LOCATOR_NEW_POST_BTN"], desc='Create post')
 
     def click_save_new_post_button(self):
-        self.click_button(TestSearchLocators.LOCATOR_SAVE_NEW_POST_BTN, desc='Save post')
+        self.click_button(TestSearchLocators.ids["LOCATOR_SAVE_NEW_POST_BTN"], desc='Save post')
 
     def contact_us_form_request(self):
-        self.click_button(TestSearchLocators.LOCATOR_CONTACT_US, desc='Contact us: open')
+        self.click_button(TestSearchLocators.ids["LOCATOR_CONTACT_US"], desc='Contact us: open')
 
     def click_contact_us_btn(self):
-        self.click_button(TestSearchLocators.LOCATOR_CONTACT_US_BTN, desc='Contact us: submit')
+        self.click_button(TestSearchLocators.ids["LOCATOR_CONTACT_US_BTN"], desc='Contact us: submit')
 
     # get text
     def get_error_text(self):
-        return self.get_element_text(TestSearchLocators.LOCATOR_ERROR_FIELD, desc='Error text')
+        return self.get_element_text(TestSearchLocators.ids["LOCATOR_ERROR_FIELD"], desc='Error text')
 
     def get_hellouser_text(self):
-        return self.get_element_text(TestSearchLocators.LOCATOR_HELLO, desc='Hello text')
+        return self.get_element_text(TestSearchLocators.ids["LOCATOR_HELLO"], desc='Hello text')
 
     def get_new_post_title(self):
-        return self.get_element_text(TestSearchLocators.LOCATOR_CHECK_NEW_POST_TITLE, desc='Post title text')
+        return self.get_element_text(TestSearchLocators.ids["LOCATOR_CHECK_NEW_POST_TITLE"], desc='Post title text')
 
     def get_alert(self):
         logging.debug(f'Retrieving alert text')
