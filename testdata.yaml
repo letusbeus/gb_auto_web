@@ -10,7 +10,7 @@ content: New post content
 name: User name
 email: user@email.me
 message: User content
-from_address: my_python@mail.ru
-to_address: my_python@mail.ru
+mail_address: my_python@mail.ru
 mail_password: kaz7wCqeaW2tyYbxGNzt
-report_name: log.txt
+html_report: reports/html_report.html
+pytest_html_report: reports/pytest_html_report.html

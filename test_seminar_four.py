@@ -17,13 +17,10 @@ name = testdata["name"]
 email = testdata["email"]
 message = testdata["message"]
 path = f'{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.png'
-from_address = testdata['from_address']
-to_address = testdata['to_address']
-mail_password = testdata['mail_password']
-report_name = 'log.txt'
+
 
 # Вызывает функцию отправки отчета на почту после выполнения всех тестов
-atexit.register(send_report, from_address, to_address, mail_password, report_name)
+atexit.register(send_report)
 
 
 def test_invalid_authorization(browser):
