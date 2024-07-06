@@ -4,7 +4,7 @@ import datetime
 import yaml
 import atexit
 from sender import send_report
-from testpage import OperationsHelper
+from testpage import OperationsHelper, APIOperationsHelper
 
 with open('testdata.yaml') as f:
     testdata = yaml.safe_load(f)
@@ -72,4 +72,12 @@ def test_contact_us_form(browser):
     time.sleep(2)
     alert_text = testpage.get_alert()
     assert alert_text == 'Form successfully submitted', "Alert text does not match expected text."
+    logging.info(f'"{testname}": test PASSED')
+
+
+def test_post_title():
+    testname = 'Post title check'
+    logging.info(f'"{testname}": test RUNNING')
+    testpage = APIOperationsHelper()
+    assert testpage.show_posts({"owner": "notMe", "order": "ASC"}, "My firt post")
     logging.info(f'"{testname}": test PASSED')

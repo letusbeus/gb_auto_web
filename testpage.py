@@ -1,9 +1,9 @@
 import logging
 import yaml
-
+import time
+import requests
 from selenium.webdriver.common.by import By
-
-from BaseApp import BasePage
+from BaseApp import BasePage, APIBasePage
 
 
 class TestSearchLocators:
@@ -120,3 +120,24 @@ class OperationsHelper(BasePage):
         text = self.get_alert_text()
         logging.debug(f'Alert text "{text}" has been retrieved.')
         return text
+
+
+class APIOperationsHelper(APIBasePage):
+    def show_posts(self, params, test_text):
+        headers = {"X-Auth-Token": self.login()}
+        logging.debug("Successfully login with token")
+        try:
+            res = requests.get(self.base_url + "/api/posts", params=params, headers=headers)
+            logging.debug(f"Get response: {res.status_code}")
+        except:
+            logging.exception("Error while get response")
+            return False
+        try:
+            list_res = [i["title"] for i in res.json()["data"]]
+            logging.debug(f"Get list of posts: {list_res}")
+        except:
+            logging.exception("Error while get list of posts")
+            return False
+        result = True if test_text in list_res else False
+        logging.debug(f"Result: {result}")
+        return result

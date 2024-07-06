@@ -67,5 +67,5 @@ class APIBasePage:
             logging.exception(f"Login failed with status code {result.status_code}")
             return None
         else:
-            logging.info(f"Login successful with status code {result.status_code}")
+            logging.debug(f"Login successful with status code {result.status_code}")
         return result.json()["token"]
